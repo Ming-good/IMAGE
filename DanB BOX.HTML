@@ -34,7 +34,7 @@
       transform: scale(1.4);
       cursor:pointer;
     }
-    #png {
+    #box {
       width: 300px;
       height: 300px;
     }
@@ -46,21 +46,18 @@
 
     async function exampleFunction(name) {
       await sleep(1500);
-      $("#gif").hide();
+      $("#box").hide();
       $("#"+name).show();
     }
 
     $(function(){
-      $("#gif").hide();
       $("#10000").hide();
       $("#25000").hide();
       $("#50000").hide();
     });
     const box = {
       openBox: function () {
-        $("#gif").show();
-        $("#png").hide();
-
+        $("#box").attr("src", $("#box").data("animated"))
         $(".content").find('img').css({
           'cursor': 'url(\'./img/rum.cur\'), auto'
         });
@@ -82,8 +79,7 @@
 
 <div class="wrapper cursor" >
   <div class="content">
-    <img id="gif" src="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/giphy.gif"/>
-    <img id="png" src="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/box.png" onclick="box.openBox()"/>
+    <img id="box" src="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/box.png" data-animated="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/giphy.gif" data-static="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/box.png" onclick="box.openBox()" />
     <img id="10000" src="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/10000.png"/>
     <img id="25000" src="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/25000.png"/>
     <img id="50000" src="https://raw.githubusercontent.com/Ming-good/IMAGE/master/img/50000.png"/>
