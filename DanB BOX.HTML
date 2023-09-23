@@ -1,83 +1,94 @@
 <html>
 <head>
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<style>
+  <style>
 
-  html {
-    --color-texta: #1d1d1d;
-    --color-textb: #fff;
-  }
+    body {
+      box-sizing: border-box;
+      font-family: Consolas, monospace;
+    }
 
-  body {
-    cursor: none;
-    width: 3rem;
-    height: 3rem;
-    border: 2px solid var(--color-texta);
-    border-radius: 50%;
-    position: absolute;
-    z-index: 1000;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: all 0.3s ease;
-    transition-property: background, transform;
-    transform-origin: 100% 100%;
-    backdrop-filter: sepia(20%);
-    background-size: cover;
-  }
+    img {
+      max-width: 100%;
+    }
 
-  .cursor-grow {
-    transform: scale(2);
-    background-color: var(--color-texta);
-  }
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100dvh;
+      background: navy;
+    }
 
+    .content {
+      padding: 3rem;
+      font-size: 2rem;
+      border-radius: 1rem;
+      background: coral;
+    }
 
-
-  .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100dvh;
-    background: navy;
-  }
-
-  .content {
-    padding: 3rem;
-    font-size: 2rem;
-    border-radius: 1rem;
-    background: coral;
-  }
-
-  #png {
-    width: 300px;
-    height: 300px;
-  }
-</style>
+    .content img {
+      transition: all 0.2s linear;
+    }
+    .content:hover img {
+      transform: scale(1.4);
+      cursor:pointer;
+    }
+    #png {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
   <script>
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function exampleFunction(name) {
+      await sleep(1500);
+      $("#gif").hide();
+      $("#"+name).show();
+    }
+
     $(function(){
       $("#gif").hide();
+      $("#10000").hide();
+      $("#25000").hide();
+      $("#50000").hide();
     });
     const box = {
       openBox: function () {
+        $("#gif").show();
+        $("#png").hide();
 
+        $(".content").find('img').css({
+          'cursor': 'url(\'./img/rum.cur\'), auto'
+        });
+        $('html, body').css({
+          'cursor': 'url("./img/rum.cur"), auto'
+        });
+        exampleFunction(box.random());
+      },
+
+      random: function () {
+        const dataSets = ["10000","10000","10000","25000", "25000", "50000"];
+        const randomIndex = Math.floor(Math.random() * dataSets.length);
+        return dataSets[randomIndex];
       },
     };
-
-    let mouseCursor = document.querySelector(".cursor");
-    let navLinks = document.querySelectorAll(".gnb li a"); //메뉴 링크
-    //window 객체에 scroll & mouse 이벤트를 추가하고 cursor함수 실행되도록 함
-    window.addEventListener("scroll", cursor);
-    window.addEventListener("mousemove", cursor);
-    //커스텀 커서의 left값과 top값을 커서의 XY좌표값과 일치시킴
-    function cursor(e) {
-      mouseCursor.style.left = e.pageX + "px";
-      mouseCursor.style.top = e.pageY - scrollY + "px";
-    }
   </script>
 </head>
 <body>
 
-<div class="wrapper" >
-  <div class="content"><img id="gif" src="./img/giphy.gif"/><img id="png" src="./img/box.png"/></div>
+<div class="wrapper cursor" >
+  <div class="content">
+    <img id="gif" src="./img/giphy.gif"/>
+    <img id="png" src="./img/box.png" onclick="box.openBox()"/>
+    <img id="10000" src="./img/10000.png"/>
+    <img id="25000" src="./img/25000.png"/>
+    <img id="50000" src="./img/50000.png"/>
+  </div>
+
 </div>
 </body>
 </html>
