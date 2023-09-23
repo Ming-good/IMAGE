@@ -56,7 +56,14 @@
       $("#50000").hide();
     });
     const box = {
+      useYn : "Y",
       openBox: function () {
+
+        if(this.useYn == "N")
+          return;
+
+        this.useYn = "N";
+
         $("#box").attr("src", $("#box").data("animated"))
         $(".content").find('img').css({
           'cursor': 'url(\'./img/rum.cur\'), auto'
